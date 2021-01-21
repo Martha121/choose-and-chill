@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+<!--Page Title -->
+    <title>Choose & Chill</title>
+</head>
+<body class="flex-column min-100-vh">
+    <!--Page Header-->
+    <header class="hero">
+        <h1 class="app-title"> Choose & Chill</h1>
+        <p>We got you covered with the movie and food</p>
+        <!--Navigation bar for each section-->
+        <nav>
+
+        </nav>
+    </header>
+    <!--Search Bar for Movie Navigation-->
+<main class="flex-row justify-space-between">
+    <div class="col-12 col-md-4">
+        <div class="">
+            <h3 class="card-header text-uppercase">Search by Genre</h3>
+            <form id="genre-form" class="genre-body">
+                <label class="form-label" for="genre-name">Genre Name</label>
+                <input name="genrename" id="genrename" type="text" class="form-input" />
+                <button type="search" class="btn">Choose & Chill</button>
+            </form>
+        </div>
+    </div>
+
+
+<!--Bootstrap alt for search content-->
+    <div class="col-12 col-md-8">
+        <h2 class="mv-title">Movie Results For <span id="repo-search-term"></span></h2>
+        <div id="repos-container" class="list-group"></div>
+    </div>
+</main>
+    <script src="./assets/js/app.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+     
+     <footer class="footer"> Choose & Chill</footer>
+    </body> 
+</html>
