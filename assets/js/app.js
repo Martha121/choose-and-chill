@@ -1,4 +1,14 @@
 
+// Get any parameters from the URL, if exist
+var urlParams = new URLSearchParams(window.location.search);
+//console.log(window.location.search );    
+var urlParamCuisine = urlParams.get("cuisine")
+if(urlParamCuisine){
+    //console.log(urlParamCuisine);
+    // Call the recipes search with the URL parameter
+    getTopRecipesByCuisine(urlParamCuisine);
+}
+
 //Function to fetch for recipes by cuisine
 function getTopRecipesByCuisine(cuisine)
 {
@@ -58,14 +68,16 @@ function displayRecipesSearchResult(searchResults){
         recipeTitleButton.value = searchResults.results[i].id;
         recipeTitleButton.addEventListener("click", function(event){
             var targetElement = event.target;
-            bttnEvenHandler(targetElement);
+            bttnEventHandler(targetElement);
         });
         foodDataEl.appendChild(recipeImg);
         foodDataEl.appendChild(recipeTitleButton);
     }
 }
 
-function bttnEvenHandler(targetElement){
+// Handles the click events for all the buttons 
+// added dynamically for each deach found in the search
+function bttnEventHandler(targetElement){
     var recipeId = targetElement.value;
     console.log("Clicked for recipe Id: "+recipeId);
     getRecipeInfoById(recipeId);
@@ -88,8 +100,7 @@ function displayRecipeInformation(recipe){
     recipeDataEl.appendChild(recipeInstructions);
 }
 
-// [TEST FUNCTION CALL]
-// Call to pull recipe results. This is for testing 
-// and should be removed once the call form an event is set up
-getTopRecipesByCuisine("italian");
-//getRecipeInfoById("547899");
+
+function bttnGoClick(){
+    window.location.href = "food-options.html?cuisine=italian";
+}
