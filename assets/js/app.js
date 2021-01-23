@@ -7,12 +7,15 @@ if(urlParamCuisine){
     //console.log(urlParamCuisine);
     // Call the recipes search with the URL parameter
     getTopRecipesByCuisine(urlParamCuisine);
+}else{
+    document.getElementById("system-message").innerHTML="Error: Missing URL parameter with cuisine information";
 }
 
 //Function to fetch for recipes by cuisine
 function getTopRecipesByCuisine(cuisine)
 {
-    fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?limitLicense=false&offset=0&number=5&cuisine="+cuisine, {
+    var offset = 20; //random number between 1 and 200
+    fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?limitLicense=false&offset="+offset+"&number=5&cuisine="+cuisine, {
         "method": "GET",
         "headers": {
             "x-rapidapi-key": "3f77afb5bdmshe64d26f6b558b5ep18167cjsnf240e41e44d4",
