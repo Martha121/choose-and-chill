@@ -57,7 +57,14 @@ var displayNetflixResults = function(searchResults) {
 	}
 
 	for(var i=0; i < randomResults.length; i++) {
-		console.log(randomResults[i]);
+		var resultsContainer = $("#movie-container");
+		var movieImage = randomResults[i].image;
+		var movieTitle = randomResults[i].title;
+		var movieSynopsis = randomResults[i].synopsis;
+		var resultsCol = $("<div>")
+		console.log(movieTitle);
+		console.log(movieImage);
+		console.log(movieSynopsis);
 	}
 }
 
