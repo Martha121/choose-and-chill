@@ -14,7 +14,10 @@ if(urlParamCuisine){
 //Function to fetch for recipes by cuisine
 function getTopRecipesByCuisine(cuisine)
 {
-    var offset = 20; //random number between 1 and 200
+    //random number between 1 and 200
+    var offset = Math.floor(Math.random() * 200);
+
+    //Fetch will return 5 random recipes based on cuisine 
     fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/searchComplex?limitLicense=false&offset="+offset+"&number=5&cuisine="+cuisine, {
         "method": "GET",
         "headers": {
@@ -58,11 +61,13 @@ function getRecipeInfoById(recipeid)
 } 
 
 // Function to display the list of 
-// receipes returned by the fetch
+// recipes returned by the fetch
+
 function displayRecipesSearchResult(searchResults){
     for(var i=0; i<searchResults.results.length; i++){
         console.log(searchResults.results[i]);
-        // Add code here to display search results
+
+        //This code displays  search results
         var foodDataEl = document.getElementById("food-options");
         var recipeImg = document.createElement("img");
         recipeImg.src=searchResults.results[i].image;
@@ -71,7 +76,7 @@ function displayRecipesSearchResult(searchResults){
         recipeTitleButton.value = searchResults.results[i].id;
         recipeTitleButton.addEventListener("click", function(event){
             var targetElement = event.target;
-            bttnEventHandler(targetElement);
+            bttnFoodTittleClick(targetElement);
         });
         foodDataEl.appendChild(recipeImg);
         foodDataEl.appendChild(recipeTitleButton);
@@ -79,8 +84,8 @@ function displayRecipesSearchResult(searchResults){
 }
 
 // Handles the click events for all the buttons 
-// added dynamically for each deach found in the search
-function bttnEventHandler(targetElement){
+// added dynamically for each dish found in the search
+function bttnFoodTittleClick(targetElement){
     var recipeId = targetElement.value;
     console.log("Clicked for recipe Id: "+recipeId);
     getRecipeInfoById(recipeId);
