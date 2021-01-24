@@ -1,7 +1,11 @@
 // Get any parameters from the URL, if exist
 var urlParams = new URLSearchParams(window.location.search);
-var urlParamsGenre = urlParams.get("genre")
-if(urlParamsGenre){
+var urlParamsGenre = urlParams.get("genre");
+var urlParamsNetflixId = urlParams.get("netflixid");
+if (urlParamsNetflixId) {
+	getDetailsById(urlParamsNetflixId);
+}
+else if(urlParamsGenre){
 	// Call the Netflix search with the URL parameter
 	searchConverter(urlParamsGenre);
 } else{
@@ -107,7 +111,8 @@ var displayNetflixResults = function(searchResults) {
 
         movieRowEl.appendChild(movieColEl);
         movieColEl.appendChild(movieTitleButton);
-        movieColEl.appendChild(movieImgEl);
+		movieColEl.appendChild(movieImgEl);
+	
 	}
 }
 
@@ -117,7 +122,7 @@ var btnMovieTitleClick = function(targetElement) {
 }
 
 var displayMovieDetails = function(movie) {
-	var titleDetailsEl = document.getElementById("title-details");
+	var titleDetailsEl = document.getElementById("modal-movie-details");
 	titleDetailsEl.innerHTML = "";
 	var movieTitleEl = document.createElement("h2");
 	movieTitleEl.textContent = movie.RESULT.nfinfo.title;
@@ -137,6 +142,44 @@ var displayMovieDetails = function(movie) {
 	titleDetailsEl.appendChild(movieImageEl);
 	titleDetailsEl.appendChild(movieSynopsisEl);
 	titleDetailsEl.appendChild(movieLinkEl);
+
+	if (urlParamsNetflixId) {
+		 // Add a link back to main page
+        var linkToMainPage = document.createElement("a");
+        var linkText = document.createTextNode("Return to Main Page");
+        linkToMainPage.appendChild(linkText);
+        linkToMainPage.title = "my title text";
+        linkToMainPage.href = "index.html";
+        titleDetailsEl.appendChild(linkToMainPage);
+	} else {
+		var button1 =document.createElement("button");
+        button1.type = "button";
+        button1.innerHTML = "Save this recipe";
+        button1.addEventListener("click", function(){
+            saveTitleDetails(movie);
+        });
+        var button2 = document.createElement("button");
+        button2.type = "button";
+        button2.innerHTML = "Return to options";
+        button2.addEventListener("click", function(){
+            clearTitleDetails();
+        });
+        titleDetailsEl.appendChild(button1);
+        titleDetailsEl.appendChild(button2);
+	}
+
+	titleDetailsEl.style.display = "block";
+}
+
+//function to remove modal from page
+function clearTitleDetails(){
+	var titleDetailsEl = document.getElementById("modal-movie-details");
+	titleDetailsEl.style.display = "none";
+}
+
+function saveTitledetails(movie){
+	window.localStorage.setItem("saved-movie", JSON.stringify(movie));
+	window.location.href = "index.html";
 }
 
 function movieBtnGoClick(){

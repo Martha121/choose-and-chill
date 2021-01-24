@@ -9,7 +9,20 @@
 <body>
    <a href="movie-options.html?genre=drama">Test page request asking for drama movies</a>
 </br>
-    <button type="button" onclick="movieBtnGoCLick()">Click Here To Go to Movies</button>
+    <div id="selected-movie"></div>
+<script>
+    loadMovieDetails();
+    function loadMovieDetails(){
+        var movieRaw = window.localStorage.getItem("saved-movie");
+        if (movieRaw){
+            var movie = JSON.parse(window.localStorage.getItem("saved-movie"));
+            var selectedMovieEl = document.getElementById("selected-movie");
+            selectedMovieEl.innerHTML = "";
+            selectedMovieEl.innerHTML = "</br>--------</br>"+ movie.RESULT.nfinfo.netflixid+"<br>"+movie.RESULT.nfinfo.title+"</br>--------</br>";
+            selectedMovieEl.innerHTML = "a href='movie-options.html?recipeid="+ movie.RESULT.nfinfo.netflixid+"'>"+movie.RESULT.nfinfo.title+"</a>";
+        }
+    }
+</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="./assets/js/app.js"></script>
