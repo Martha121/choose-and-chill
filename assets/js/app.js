@@ -92,8 +92,6 @@ var displayNetflixResults = function(searchResults) {
 		var movieImgEl = document.createElement("img");
 		var movieImageSrc = randomResults[i].image;
 		movieImgEl.src = movieImageSrc;
-		var movieSynopsis = randomResults[i].synopsis;
-		var movieTitle = randomResults[i].title;
         var movieTitleButton = document.createElement("button");
 		movieTitleButton.textContent = randomResults[i].title;
 		movieTitleButton.value = randomResults[i].netflixid; 
@@ -103,7 +101,7 @@ var displayNetflixResults = function(searchResults) {
 		})
         
 		var movieRowEl = document.getElementById('movie-row');
-		console.log(movieRowEl);
+		//console.log(movieRowEl);
 		var movieColEl = document.createElement("div");
 		movieColEl.className = "col-sm-2";
 
@@ -120,6 +118,7 @@ var btnMovieTitleClick = function(targetElement) {
 
 var displayMovieDetails = function(movie) {
 	var titleDetailsEl = document.getElementById("title-details");
+	titleDetailsEl.innerHTML = "";
 	var movieTitleEl = document.createElement("h2");
 	movieTitleEl.textContent = movie.RESULT.nfinfo.title;
 	var movieImageEl = document.createElement("img");
