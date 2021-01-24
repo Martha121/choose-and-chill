@@ -1,4 +1,12 @@
-
+// Get any parameters from the URL, if exist
+var urlParams = new URLSearchParams(window.location.search);
+var urlParamsGenre = urlParams.get("genre")
+if(urlParamsGenre){
+	// Call the Netflix search with the URL parameter
+	searchConverter(urlParamsGenre);
+} else{
+	document.getElementById("system-message").innerHTML="Error: Missing URL parameter with genre information";
+}
 
 //function to fetch titles by genre
 var getFilteredResults = function(genre) {
@@ -49,7 +57,7 @@ var searchConverter = function(genre) {
 
 }
 
-//Function to create and access an array of 5 random titles in the selected genre
+//Function to display 5 random recipes returned by the fetch
 var displayNetflixResults = function(searchResults) {
 	var randomResults = [];
 	for(var i=0; i < 5; i++) {
@@ -60,21 +68,35 @@ var displayNetflixResults = function(searchResults) {
 
 	for(var i=0; i < randomResults.length; i++) {
         var movieImgEl = document.createElement("img");
-        movieImgEl.src = randomResults[i].image;
-        var movieTitleEl = document.createElement("h2");
-        movieTitleEl.textContent = randomResults[i].title;
-        var movieSynopsisEl = document.createElement("p");
+		movieImgEl.src = randomResults[i].image;
+		var movieSynopsisEl = document.createElement("p");
 		movieSynopsisEl.textContent = randomResults[i].synopsis;
+        var movieTitleButton = document.createElement("button");
+		movieTitleButton.textContent = randomResults[i].title;
+		movieTitleButton.value = 
+		movieTitleButton.addEventListener("click", function(event){
+			var targetElement = event.target;
+			movieTitleButtonClick(targetElement, );
+		})
+        
+
 		var movieRowEl = document.getElementById('movie-row');
 		console.log(movieRowEl);
 		var movieColEl = document.createElement("div");
 		movieColEl.className = "col-sm-2";
 
         movieRowEl.appendChild(movieColEl);
-        movieColEl.appendChild(movieTitleEl);
+        movieColEl.appendChild(movieTitleButton);
         movieColEl.appendChild(movieImgEl);
-        movieColEl.appendChild(movieSynopsisEl);
 	}
+}
+
+var movieTitleButtonClick = function () {
+	
+}
+
+var displayTitleDetails = function() {
+
 }
 
 // TEST FUNCTION CALL
