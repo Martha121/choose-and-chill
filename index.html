@@ -3,25 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" href="./assets/css/styles.css">
+    <title>Choose and Chill</title>
 </head>
 <body>
-    <a href="food-options.html?cuisine=French">Test page request asking for French cuisine</a>
-</br>
-    <div id="selected-recipe"></div>
-<script>
-    loadRecipeInformation();
-    function loadRecipeInformation(){ 
-       var recipeRaw = window.localStorage.getItem("saved-recipe");
-       if(recipeRaw){
-            var recipe = JSON.parse(window.localStorage.getItem("saved-recipe"));
-            var selectedRecipeEl = document.getElementById("selected-recipe");
-            selectedRecipeEl.innerHTML = "";
-            selectedRecipeEl.innerHTML = "</br>--------</br>"+recipe.id+"<br>"+recipe.title+"</br>--------</br>";
-            selectedRecipeEl.innerHTML += "<a href='food-options.html?recipeid="+recipe.id+"' >"+recipe.title+"</a>";
-       }
-    }
-</script>
-
+    <nav>
+        <div class="nav-wrapper">
+        <a href="./index.html" class="brand-logo">Choose & Chill</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
+            <li><a href="./saved-searches.html">My Saved Searches</a></li>
+        </ul>
+        </div>
+    </nav>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="./saved-searches.html">My Saved Searches</a></li>
+    </ul>
+    <div class="main-content">
+        <h1>Choose and Chill</h1>
+        <p class="description">Watch movies & TV shows online while eating your favorite foods!</p>
+        <div class="form-container">
+            <div class="input-field movie">
+                <select>
+                    <option disabled selected>Choose Your Movie Genre</option>
+                    <option>African</option>
+                    <option>American</option>
+                    <option>British</option>
+                    <option>Cajun</option>
+                    <option>Caribbean</option>
+                    <option>Chinese</option>
+                    <option>Eastern European</option>
+                    <option>European</option>
+                    <option>French</option>
+                    <option>German</option>
+                    <option>Greek</option>
+                    <option>Indian</option>
+                    <option>Irish</option>
+                    <option>Italian</option>
+                    <option>Japanese</option>
+                    <option>Jewish</option>
+                    <option>Korean</option>
+                    <option>Latin American</option>
+                    <option>Mediterranean</option>
+                    <option>Mexican</option>
+                    <option>Middle Eastern</option>
+                    <option>Nordic</option>
+                    <option>Southern</option>
+                    <option>Spanish</option>
+                    <option>Thai</option>
+                    <option>Vietnamese</option>
+                </select>
+            </div>
+            <div class="input-field cuisine">
+                <select>
+                    <option disabled selected>Choose Your Cuisine</option>
+                    <option>African</option>
+                    <option>American</option>
+                    <option>British</option>
+                    <option>Cajun</option>
+                    <option>Caribbean</option>
+                    <option>Chinese</option>
+                    <option>Eastern European</option>
+                    <option>European</option>
+                    <option>French</option>
+                    <option>German</option>
+                    <option>Greek</option>
+                    <option>Indian</option>
+                    <option>Irish</option>
+                    <option>Italian</option>
+                    <option>Japanese</option>
+                    <option>Jewish</option>
+                    <option>Korean</option>
+                    <option>Latin American</option>
+                    <option>Mediterranean</option>
+                    <option>Mexican</option>
+                    <option>Middle Eastern</option>
+                    <option>Nordic</option>
+                    <option>Southern</option>
+                    <option>Spanish</option>
+                    <option>Thai</option>
+                    <option>Vietnamese</option>
+                </select>
+            </div>
+        </div>
+        <button class="food-submit btn waves-effect waves-light" type="submit" name="action">Search</button>
+        <div class="food-results"></div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="./assets/js/app.js"></script>
+    <!-- <script src="./assets/js/food-options.js"></script> -->
 </body>
 </html>
