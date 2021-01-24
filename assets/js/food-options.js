@@ -3,17 +3,16 @@ var urlParams = new URLSearchParams(window.location.search);
 var urlParamCuisine = urlParams.get("cuisine");
 var urlParamRecipeId = urlParams.get("recipeid");
 
-if(urlParamRecipeId){
+if(urlParamRecipeId){ // If true, this call is only to see the recipe info
     getRecipeInfoById(urlParamRecipeId);
-}else if(urlParamCuisine){
+}else if(urlParamCuisine){ // If true, this call is to show search results
     // Call the recipes search with the URL parameter
     getTopRecipesByCuisine(urlParamCuisine);
 }else{
     document.getElementById("system-message").innerHTML="Error: Missing URL parameter with cuisine information";
 }
 
-
-//Function to fetch for recipes by cuisine
+// Function to fetch for recipes by cuisine
 function getTopRecipesByCuisine(cuisine)
 {
     //random number between 1 and 200
@@ -28,10 +27,7 @@ function getTopRecipesByCuisine(cuisine)
         }
     })
     .then(response => {
-        console.log(response);
         response.json().then(function(data) {
-            console.log("Response JSON");
-            console.log(data);
             if(data.results.length == 0){
                 document.getElementById("system-message").innerHTML="No results from current query";
             }else{
@@ -58,10 +54,7 @@ function getRecipeInfoById(recipeid)
         }
     })
     .then(response => {
-        console.log(response);
-        console.log(">>> getRecipeById Success <<<");
-        response.json().then(function(data) {
-            console.log(data);
+            response.json().then(function(data) {
             displayRecipeInformation(data);
         })
     })
