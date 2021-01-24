@@ -1,0 +1,104 @@
+nav {
+    padding: 5px;
+    height: 66px;
+    background-color: red;
+}
+
+nav .sidenav-trigger {
+    float: right;
+}
+
+nav .brand-logo {
+    font-size: 20px;
+    left: 25%;
+    width: 50%;
+}
+
+.main-content {
+    padding: 16px;
+    background-color: black;
+}
+
+.main-content h1 {
+    color: white;
+    font-size: 35px;
+    text-align: center;
+    margin: 0 0 24px 0;
+}
+
+.description {
+    color: white;
+    text-align: center;
+    margin: 0 0 48px 0;
+    font-size: 16px;
+}
+
+.input-field {
+    margin: 0 0 16px 0;
+}
+
+.input-field .select-wrapper input {
+    color: white;
+}
+
+.food-submit {
+    margin-bottom: 15px;
+}
+
+.food-results {
+    margin-top: 50px;
+}
+
+.food-results .row {
+    margin: 50px 0;
+}
+
+.card-container {
+    border-radius: 3px;
+}
+
+.card-action {
+    background-color: red !important;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    border-bottom: 1px solid white;
+}
+
+@media (min-width: 768px) {
+    nav .brand-logo {
+        font-size: 30px;
+    }
+
+    .main-content {
+        padding: 24px;
+        background-color: black;
+        text-align: center;
+    }
+
+    .description {
+        font-size: 18px;
+    }
+
+    .form-container {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .form-container .input-field {
+        width: 48%;
+    }
+
+    .card-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+}
+
+@media (min-width: 993px) {
+    nav .brand-logo {
+        left: 0;
+    }
+}
