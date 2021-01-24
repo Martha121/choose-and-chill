@@ -1,7 +1,9 @@
+
+
 //function to fetch titles by genre
 var getFilteredResults = function(genre) {
 	console.log(genre);
-	var resultsUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=-!1900%2C2018-!0%2C5-!0%2C10-!" + genre + "-!Any-!Any-!Any-!gt100-!%7Bdownloadable%7D&t=ns&cl=78&st=adv&ob=Relevance&p=1&sa=and";
+	var resultsUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=-!1900%2C2018-!0%2C5-!7%2C10-!" + genre + "-!Any-!Any-!Any-!gt100-!%7Bdownloadable%7D&t=ns&cl=78&st=adv&ob=Relevance&p=1&sa=and";
 	fetch(resultsUrl, {
 	"method": "GET",
 	"headers": {
@@ -57,16 +59,23 @@ var displayNetflixResults = function(searchResults) {
 	}
 
 	for(var i=0; i < randomResults.length; i++) {
-		var resultsContainer = $("#movie-container");
-		var movieImage = randomResults[i].image;
-		var movieTitle = randomResults[i].title;
-		var movieSynopsis = randomResults[i].synopsis;
-		var resultsCol = $("<div>")
-		console.log(movieTitle);
-		console.log(movieImage);
-		console.log(movieSynopsis);
+        var movieImgEl = document.createElement("img");
+        movieImgEl.src = randomResults[i].image;
+        var movieTitleEl = document.createElement("h2");
+        movieTitleEl.textContent = randomResults[i].title;
+        var movieSynopsisEl = document.createElement("p");
+		movieSynopsisEl.textContent = randomResults[i].synopsis;
+		var movieRowEl = document.getElementById('movie-row');
+		console.log(movieRowEl);
+		var movieColEl = document.createElement("div");
+		movieColEl.className = "col-sm-2";
+
+        movieRowEl.appendChild(movieColEl);
+        movieColEl.appendChild(movieTitleEl);
+        movieColEl.appendChild(movieImgEl);
+        movieColEl.appendChild(movieSynopsisEl);
 	}
 }
 
 // TEST FUNCTION CALL
-searchConverter("romance");
+searchConverter("comedy");
