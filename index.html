@@ -6,9 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    <a href="food-options.html?cuisine=mexican">Test page request asking for mexican cuisine</a>
+    <a href="food-options.html?cuisine=French">Test page request asking for French cuisine</a>
 </br>
-    <button type="button" onclick="bttnGoClick()">Click Here To Go</button>
-    <script src="./assets/js/app.js"></script>
+    <div id="selected-recipe"></div>
+<script>
+    loadRecipeInformation();
+    function loadRecipeInformation(){ 
+       var recipeRaw = window.localStorage.getItem("saved-recipe");
+       if(recipeRaw){
+            var recipe = JSON.parse(window.localStorage.getItem("saved-recipe"));
+            var selectedRecipeEl = document.getElementById("selected-recipe");
+            selectedRecipeEl.innerHTML = "";
+            selectedRecipeEl.innerHTML = "</br>--------</br>"+recipe.id+"<br>"+recipe.title+"</br>--------</br>";
+            selectedRecipeEl.innerHTML += "<a href='food-options.html?recipeid="+recipe.id+"' >"+recipe.title+"</a>";
+       }
+    }
+</script>
+
 </body>
 </html>
