@@ -111,10 +111,18 @@ function displayRecipeInformation(recipe){
     recipeDataEl.innerHTML="";
     var recipeImg = document.createElement("img");
     var recipeInstructions = document.createElement("p");
-    // *** var recipeIngredientes = document.createElement ("p");
+    var recipeTitle = document.createElement ("p");
+    var recipeIngredient = document.createElement ("p");
+    recipeIngredient.innerHTML = "Ingredients: ";
+    for(var i=0; i<recipe.extendedIngredients.length; i++){
+          recipeIngredient.innerHTML+=recipe.extendedIngredients[i].name+",";
+    }
+    recipeTitle.innerHTML = recipe.title;
     recipeImg.src=recipe.image;
-    recipeInstructions.innerHTML=recipe.instructions;
+    recipeInstructions.innerHTML="Instructions: "+recipe.instructions;
     recipeDataEl.appendChild(recipeImg);
+    recipeDataEl.appendChild(recipeTitle);
+    recipeDataEl.appendChild(recipeIngredient);
     recipeDataEl.appendChild(recipeInstructions);
 
     if(urlParamRecipeId){// This means is here only to see recipe
