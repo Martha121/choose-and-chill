@@ -17,18 +17,20 @@ function getFilteredResults(genre) {
 	console.log(genre);
 	var resultsUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew2555-!1900%2C2020-!0%2C5-!7%2C10-!" + genre + "-!Any-!Any-!Any-!gt50-!%7Bdownloadable%7D&t=ns&cl=78&st=adv&ob=Relevance&p=1&sa=and";
 	fetch(resultsUrl, {
+	"Content-Type": "application/json",
 	"method": "GET",
 	"headers": {
+		"Content-Type": "text/html;charset=UTF-8",
 		"x-rapidapi-key": "0c425d1814msh0b34ce4efb75316p1d5409jsn5681f63cb68d",
 		"x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
 	}
 })
 .then(response => {
-	response.json().then(function(data) {
-		console.log(data);
-		displayNetflixResults(data);
-		});
-})
+	return response.json()
+}).then(function(data) {
+	console.log(data);
+	displayNetflixResults(data);
+	})
 .catch(err => {
 	console.error(err);
 });
@@ -46,11 +48,11 @@ function getDetailsById(netflixId) {
 	}
 })
 .then(response => {
-	response.json().then(function(data) {
-		console.log(data);
-		displayMovieDetails(data);
-		});
-})
+	return response.json()
+}).then(function(data) {
+	console.log(data);
+	displayMovieDetails(data);
+	})
 .catch(err => {
 	console.error(err);
 });
@@ -97,7 +99,7 @@ var displayNetflixResults = function(searchResults) {
 		var movieImageSrc = randomResults[i].image;
 		movieImgEl.src = movieImageSrc;
         var movieTitleButton = document.createElement("button");
-		movieTitleButton.textContent = randomResults[i].title;
+		movieTitleButton.innerHTML = randomResults[i].title;
 		movieTitleButton.value = randomResults[i].netflixid; 
 		movieTitleButton.addEventListener("click", function(event){
 			var targetElement = event.target;
@@ -125,16 +127,17 @@ var displayMovieDetails = function(movie) {
 	var titleDetailsEl = document.getElementById("modal-movie-details");
 	titleDetailsEl.innerHTML = "";
 	var movieTitleEl = document.createElement("h2");
-	movieTitleEl.textContent = movie.RESULT.nfinfo.title;
+	movieTitleEl.innerHTML = movie.RESULT.nfinfo.title;
 	var movieImageEl = document.createElement("img");
 	movieImageEl.src = movie.RESULT.nfinfo.image1;
 	var movieSynopsisEl = document.createElement("p");
-	movieSynopsisEl.textContent = movie.RESULT.nfinfo.synopsis;
+	movieSynopsisEl.innerHTML = movie.RESULT.nfinfo.synopsis;
 	var movieLinkEl = document.createElement("a");
 	var str1 = "https://www.netflix.com/browse?jbv=";
 	var str2 = movie.RESULT.nfinfo.netflixid;
 	movieLinkEl.href = str1.concat(str2);
 	movieLinkEl.textContent = "Link to Netflix Page";
+	movieLinkEl.setAttribute("target", "_blank");
 
 
 
