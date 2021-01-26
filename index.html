@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <title>Choose and Chill</title>
 </head>
@@ -21,38 +22,17 @@
         <li><a href="./saved-searches.html">My Saved Searches</a></li>
     </ul>
     <div class="main-content">
-        <h1>Choose and Chill</h1>
+        <h1>Choose & Chill</h1>
         <p class="description">Watch movies & TV shows online while eating your favorite foods!</p>
         <div class="form-container">
             <div class="input-field movie">
                 <select>
                     <option disabled selected>Choose Your Movie Genre</option>
-                    <option>African</option>
-                    <option>American</option>
-                    <option>British</option>
-                    <option>Cajun</option>
-                    <option>Caribbean</option>
-                    <option>Chinese</option>
-                    <option>Eastern European</option>
-                    <option>European</option>
-                    <option>French</option>
-                    <option>German</option>
-                    <option>Greek</option>
-                    <option>Indian</option>
-                    <option>Irish</option>
-                    <option>Italian</option>
-                    <option>Japanese</option>
-                    <option>Jewish</option>
-                    <option>Korean</option>
-                    <option>Latin American</option>
-                    <option>Mediterranean</option>
-                    <option>Mexican</option>
-                    <option>Middle Eastern</option>
-                    <option>Nordic</option>
-                    <option>Southern</option>
-                    <option>Spanish</option>
-                    <option>Thai</option>
-                    <option>Vietnamese</option>
+                    <option>Action</option>
+                    <option>Comedy</option>
+                    <option>Drama</option>
+                    <option>Horror</option>
+                    <option>Romantic</option>
                 </select>
             </div>
             <div class="input-field cuisine">
@@ -88,6 +68,9 @@
             </div>
         </div>
         <button class="food-submit btn waves-effect waves-light" type="submit" name="action">Search</button>
+        <p class="movies-title">Movie Results:</p>
+        <div class="movie-results"></div>
+        <p class="food-title">Food Results:</p>
         <div class="food-results"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
