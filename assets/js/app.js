@@ -102,8 +102,11 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
                 </div>
             `;
+
             resultsList.appendChild(resultItem);
         });
+
+       
 
         const save = document.querySelectorAll('.save-movie');
         save.forEach(button => {
@@ -124,6 +127,35 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
             });
         });
+        
+
+
+        
+    }
+
+    function movieModal() {
+        var movieModalEl = document.getElementById("modal-movie-details");
+            movieModalEl.innerHTML ="";
+            var movieImg = document.createElement("img");
+            movieImg.src = movie.image;
+            movieImg.style.height="200px"
+            var movieSynopsis = document.createElement("p");
+            movieSynopsis.innerHTML = movie.synopsis;
+            var movieTitle = document.createElement ("p");
+            movieTitle.innerHTML = movie.title;
+            var movieRunTime = document.createElement ("p");
+            movieRunTime.innerHTML = "Run Time: " + movie.runtime;
+            var movieRelease = document.createElement ("p");
+            movieRelease.innerHTML = "Release Date: " + movie.released;
+            var movieRating = document.createElement ("p");
+            movieRating.innerHTML = "Netflix Rating: " + movie.rating;
+
+            movieModalEl.appendChild(movieTitle);
+            movieModalEl.appendChild(movieImg);
+            movieModalEl.appendChild(movieSynopsis);
+            movieModalEl.appendChild(movieRunTime);
+            movieModalEl.appendChild(movieRelease);
+            movieModalEl.appendChild(movieRating);
     }
 
    
