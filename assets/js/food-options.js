@@ -112,6 +112,7 @@ function displayRecipeInformation(recipe){
     }
     recipeTitle.innerHTML = recipe.title;
     recipeImg.src=recipe.image;
+    recipeImg.style.height="200px";
     recipeInstructions.innerHTML="Instructions: "+recipe.instructions;
     recipeDataEl.appendChild(recipeImg);
     recipeDataEl.appendChild(recipeTitle);
