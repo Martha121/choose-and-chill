@@ -59,6 +59,10 @@ nav .brand-logo {
     margin: 50px 0;
 }
 
+.movie-results .row {
+    margin: 50px 0;
+}
+
 .card-container {
     border-radius: 3px;
 }
@@ -82,7 +86,8 @@ nav .brand-logo {
     text-align: left;
 }
 
-.view-recipe {
+.view-recipe, 
+.view-movie {
     display: block;
     width: 100%;
 }
@@ -180,7 +185,15 @@ nav .brand-logo {
         border-bottom: none;
     }
 
+    .saved-movies .card-action {
+        border-bottom: none;
+    }
+
     .saved-food .view-recipe {
+        color: white !important;
+    }
+
+    .saved-movies .view-movie {
         color: white !important;
     }
 

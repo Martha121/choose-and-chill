@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
     submit.addEventListener('click', () => {
         const cuisine = document.querySelector('.cuisine .select-dropdown').value;
         const genreInput = document.querySelector('.movie .select-dropdown').value;
-        const genre = getMovieId(genreInput);
+        const genre = getGenreId(genreInput);
         getTopRecipesByCuisine(cuisine);
         getTopMovies(genre);
     });
 
-    function getMovieId(genre) {
+    function getGenreId(genre) {
         switch(genre) {
             case "Action": return "801362";
             case "Comedy": return "6548";
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 "x-rapidapi-key": "0c425d1814msh0b34ce4efb75316p1d5409jsn5681f63cb68d",
                 "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
             },
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
         })
         .then(response => {
             return response.json();
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(err);
         });
     }
+
 
     // Function to fetch for recipes by cuisine
     function getTopRecipesByCuisine(cuisine) {
@@ -77,8 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         const movies = moviesArray.slice(0, 5);
 
+        const resultsList = document.querySelector('.movie-results');
+        resultsList.innerHTML = "";
+
         movies.forEach(movie => {
-            const resultsList = document.querySelector('.movie-results');
             const resultItem = document.createElement('DIV');
             resultItem.classList.add('movie');
             resultItem.innerHTML = `
@@ -92,6 +95,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="movie-title">` + movie.title + `</p>
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
+                            <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
+                            
                             <div class="card-action save-movie">Save</div>
                         </div>
                     </div>
@@ -108,20 +113,25 @@ document.addEventListener('DOMContentLoaded', function() {
                 const title = titleElem.innerHTML;
                 const image = card.querySelector('.card-image img');
                 const synopsis = card.querySelector('.synopsis').innerHTML;
+                const netflixURL = card.querySelector('.view-movie').href;
                 const savedMovie = {
                     title: title,
                     image: image.currentSrc,
                     synopsis: synopsis,
-                    type: 'movie'
+                    type: 'movie',
+                    url: netflixURL
                 }
                 localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
             });
         });
     }
 
+   
+
     function displayRecipesSearchResult(searchResults){
-        (searchResults.results).forEach(result => {
             const resultsList = document.querySelector('.food-results');
+            resultsList.innerHTML = "";
+        (searchResults.results).forEach(result => {
             const resultItem = document.createElement('DIV');
             resultItem.classList.add('food');
             resultItem.innerHTML = `
@@ -134,7 +144,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="card-content">
                                 <p class="recipe-title">` + result.title + `</p>
                             </div>
+                            
                             <a class="card-action view-recipe" href="` + result.sourceUrl + `" target="_blank">View Recipe</a>
+                            
                             <div class="card-action save-recipe">Save</div>
                         </div>
                     </div>
