@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 "x-rapidapi-key": "0c425d1814msh0b34ce4efb75316p1d5409jsn5681f63cb68d",
                 "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
             },
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
         })
         .then(response => {
             return response.json();
@@ -96,6 +96,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
                             <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
+                            
                             <div class="card-action save-movie">Save</div>
                         </div>
                     </div>
@@ -112,11 +113,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 const title = titleElem.innerHTML;
                 const image = card.querySelector('.card-image img');
                 const synopsis = card.querySelector('.synopsis').innerHTML;
+                const netflixURL = card.querySelector('.view-movie').href;
                 const savedMovie = {
                     title: title,
                     image: image.currentSrc,
                     synopsis: synopsis,
-                    type: 'movie'
+                    type: 'movie',
+                    url: netflixURL
                 }
                 localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
             });
@@ -141,7 +144,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="card-content">
                                 <p class="recipe-title">` + result.title + `</p>
                             </div>
+                            
                             <a class="card-action view-recipe" href="` + result.sourceUrl + `" target="_blank">View Recipe</a>
+                            
                             <div class="card-action save-recipe">Save</div>
                         </div>
                     </div>

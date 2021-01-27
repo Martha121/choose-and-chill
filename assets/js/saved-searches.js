@@ -33,6 +33,9 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="recipe-title">` + result.title + `</p>
                                 <p>` + result.synopsis + `</p>
                             </div>
+                            <div class="card-action">
+                                <a class="view-movie" href="` + result.url + `" target="_blank">View Netflix Page</a>
+                            </div>
                         </div>
                     </div>
                 </div>
