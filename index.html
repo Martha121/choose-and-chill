@@ -37,8 +37,8 @@
                 </select>
             </div>
             <div class="input-field cuisine">
-                <select>
-                    <option disabled selected>Choose Your Cuisine</option>
+                <select id="cuisine-select">
+                    <option disabled selected value="">Choose Your Cuisine</option>
                     <option>African</option>
                     <option>American</option>
                     <option>British</option>
@@ -75,6 +75,13 @@
         <div class="food-results"></div>
         <div class="modal" id="modal-save-alert">
             <button type="button" class="close-modal" data-dismiss="modal">return to results</button>
+        </div>
+        <div class="modal" id="modal-recipe" >
+            <div class="modal-header" id="modal-header-buttons"></div>
+            <div class="modal-content">
+            
+                <button type="button" class="close-modal" data-dismiss="modal">save</button>
+            </div>        
         </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
