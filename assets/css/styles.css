@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap');
+
+body {
+    background-color: black;
+    font-family: 'Oswald', sans-serif;
+}
+
 nav {
     padding: 5px;
     height: 66px;
@@ -10,13 +17,12 @@ nav .sidenav-trigger {
 
 nav .brand-logo {
     font-size: 20px;
-    left: 25%;
-    width: 50%;
 }
 
 .main-content {
     padding: 16px;
     background-color: black;
+    text-align: center;
 }
 
 .main-content h1 {
@@ -37,12 +43,12 @@ nav .brand-logo {
     margin: 0 0 16px 0;
 }
 
-.input-field .select-wrapper input {
-    color: white;
-}
-
-.food-submit {
+.submit {
     margin-bottom: 15px;
+    background-color: red !important;
+    height: 50px;
+    width: 200px;
+    font-size: 18px;
 }
 
 .food-results {
@@ -66,15 +72,36 @@ nav .brand-logo {
     border-bottom: 1px solid white;
 }
 
-@media (min-width: 768px) {
+.movies-title,
+.food-title {
+    font-size: 20px;
+    font-weight: bold;
+    padding-left: 20px;
+    margin-bottom: 20px;
+    color: white;
+    text-align: left;
+}
+
+.view-recipe {
+    display: block;
+    width: 100%;
+}
+
+.form-container {
+    background-color: white;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 15px;
+}
+
+@media (min-width: 993px) {
     nav .brand-logo {
-        font-size: 30px;
+        left: 0;
     }
 
     .main-content {
         padding: 24px;
         background-color: black;
-        text-align: center;
     }
 
     .description {
@@ -95,10 +122,73 @@ nav .brand-logo {
         max-width: 500px;
         margin: 0 auto;
     }
-}
 
-@media (min-width: 993px) {
-    nav .brand-logo {
-        left: 0;
+    .card-action {
+        padding: 12px 0px !important;
+    }
+
+    .card-action a {
+        margin: 0 auto !important;
+    }
+
+    .movie-results,
+    .food-results {
+        display: flex;
+        align-items: stretch;
+        margin-top: 0px;
+    }
+
+    .saved-movies,
+    .saved-food {
+        display: flex;
+        padding: 0 24px;
+        justify-content: start;
+        flex-wrap: wrap;
+    }
+
+    .movies-title,
+    .food-title {
+        font-size: 24px;
+        font-weight: bold;
+        padding-left: 20px;
+        margin-bottom: 20px;
+        color: white;
+    }
+
+    .movie,
+    .food {
+        width: 17%;
+        margin-right: 20px;
+    }
+
+    .movie-title,
+    .recipe-title {
+        font-weight: bold;
+        margin-bottom: 15px !important;
+        font-size: 18px;
+        text-align: center;
+    }
+
+    .save-movie,
+    .view-recipe,
+    .save-recipe {
+        cursor: pointer;
+        border: none;
+    }
+
+    .saved-food .card-action {
+        border-bottom: none;
+    }
+
+    .saved-food .view-recipe {
+        color: white !important;
+    }
+
+    .food-results .view-recipe {
+        border-bottom: 1px solid white;
+    }
+
+    .food-results .row {
+        margin-top: 0;
     }
 }

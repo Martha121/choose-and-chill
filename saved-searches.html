@@ -4,19 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/styles.css">
     <title>Saved Searches</title>
 </head>
 <body>
     <nav>
         <div class="nav-wrapper">
-            <a href="./index.html" class="brand-logo">Home</a>
-            <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <a href="./index.html" class="brand-logo">- Choose and Chill -</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+        <ul class="right hide-on-med-and-down">
             <li><a href="./saved-searches.html">My Saved Searches</a></li>
-            </ul>
+        </ul>
         </div>
     </nav>
-    <div class="results"></div>
+    <ul class="sidenav" id="mobile-demo">
+        <li><a href="./saved-searches.html">My Saved Searches</a></li>
+    </ul>
+    <p class="movies-title">Movies:</p>
+    <div class="saved-movies"></div>
+    <p class="food-title">Food:</p>
+    <div class="saved-food"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/saved-searches.js"></script>
 </body>
 </html>

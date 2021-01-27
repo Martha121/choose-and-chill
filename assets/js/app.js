@@ -1,18 +1,56 @@
 document.addEventListener('DOMContentLoaded', function() {
     var select = document.querySelectorAll('select');
+    var formInstances = M.FormSelect.init(select, {});
     var sideNav = document.querySelectorAll('.sidenav');
-    var instances = M.FormSelect.init(select, sideNav, {});
+    var sideNavInstances = M.Sidenav.init(sideNav, {});
+
+    document.querySelector('.sidenav-trigger').addEventListener('click', () => {
+        sideNavInstances.open();
+    });
 
     const submit = document.querySelector('button');
     submit.addEventListener('click', () => {
         const cuisine = document.querySelector('.cuisine .select-dropdown').value;
+        const genreInput = document.querySelector('.movie .select-dropdown').value;
+        const genre = getMovieId(genreInput);
         getTopRecipesByCuisine(cuisine);
+        getTopMovies(genre);
     });
+
+    function getMovieId(genre) {
+        switch(genre) {
+            case "Action": return "801362";
+            case "Comedy": return "6548";
+            case "Drama": return "5763";
+            case "Horror": return "8711";
+            case "Romantic": return "8883";
+        }
+    }
+
+    function getTopMovies(genre) {
+        var resultsUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=get%3Anew2555-!1900%2C2020-!0%2C5-!7%2C10-!" + genre + "-!Any-!Any-!Any-!gt50-!%7Bdownloadable%7D&t=ns&cl=78&st=adv&ob=Relevance&p=1&sa=and";
+        fetch(resultsUrl, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "0c425d1814msh0b34ce4efb75316p1d5409jsn5681f63cb68d",
+                "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
+            },
+            "Content-Type": "application/json",
+        })
+        .then(response => {
+            return response.json();
+        }).then(function(data) {
+            displayMovieSearchResult(data);
+        }).catch(err => {
+            console.error(err);
+        });
+    }
 
     // Function to fetch for recipes by cuisine
     function getTopRecipesByCuisine(cuisine) {
+        const offset = Math.floor(Math.random() * 200);
         //Fetch will return 5 random recipes based on cuisine
-        fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?limitLicense=false&addRecipeInformation=true&number=5&cuisine="+cuisine, {
+        fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?limitLicense=false&offset="+offset+"&addRecipeInformation=true&number=5&cuisine="+cuisine, {
             "method": "GET",
             "headers": {
                 "x-rapidapi-key": "3f77afb5bdmshe64d26f6b558b5ep18167cjsnf240e41e44d4",
@@ -20,34 +58,84 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .then(response => {
-            response.json().then(function(data) {
-                console.log(data);
-                displayRecipesSearchResult(data);
-            });
-        })
-        .catch(err => {
+            return response.json();
+        }).then(function(data) {
+            displayRecipesSearchResult(data);
+        }).catch(err => {
             console.error(err);
+        });
+    }
+
+    function displayMovieSearchResult(searchResults){
+        const moviesArray = [];
+        const count = parseInt(searchResults.COUNT) > 100 ? 100 : parseInt(searchResults.COUNT);
+        (searchResults.ITEMS).forEach(result => {
+            const random = (searchResults.ITEMS)[Math.floor(Math.random() * count)];
+            if(moviesArray.indexOf(random) === -1) {
+                moviesArray.push(random);
+            }
+        });
+        const movies = moviesArray.slice(0, 5);
+
+        movies.forEach(movie => {
+            const resultsList = document.querySelector('.movie-results');
+            const resultItem = document.createElement('DIV');
+            resultItem.classList.add('movie');
+            resultItem.innerHTML = `
+                <div class="row">
+                    <div class="card-container">
+                        <div class="card">
+                            <div class="card-image">
+                                <img src=` + movie.image + `>
+                            </div>
+                            <div class="card-content">
+                                <p class="movie-title">` + movie.title + `</p>
+                                <p class="synopsis">` + movie.synopsis + `</p>
+                            </div>
+                            <div class="card-action save-movie">Save</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            resultsList.appendChild(resultItem);
+        });
+
+        const save = document.querySelectorAll('.save-movie');
+        save.forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.parentElement;
+                const titleElem = card.querySelector('.movie-title');
+                const title = titleElem.innerHTML;
+                const image = card.querySelector('.card-image img');
+                const synopsis = card.querySelector('.synopsis').innerHTML;
+                const savedMovie = {
+                    title: title,
+                    image: image.currentSrc,
+                    synopsis: synopsis,
+                    type: 'movie'
+                }
+                localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
+            });
         });
     }
 
     function displayRecipesSearchResult(searchResults){
         (searchResults.results).forEach(result => {
-            console.log(result);
             const resultsList = document.querySelector('.food-results');
             const resultItem = document.createElement('DIV');
+            resultItem.classList.add('food');
             resultItem.innerHTML = `
                 <div class="row">
                     <div class="card-container">
                         <div class="card">
                             <div class="card-image">
                                 <img src=` + result.image + `>
-                                <span class="card-title">` + result.title + `</span>
                             </div>
                             <div class="card-content">
-                                <p>` + result.summary + `</p>
+                                <p class="recipe-title">` + result.title + `</p>
                             </div>
-                            <div class="card-action view-recipe">View Recipe</div>
-                            <div class="card-action save">Save</div>
+                            <a class="card-action view-recipe" href="` + result.sourceUrl + `" target="_blank">View Recipe</a>
+                            <div class="card-action save-recipe">Save</div>
                         </div>
                     </div>
                 </div>
@@ -60,23 +148,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const target = e.target;
             const card = (target.parentElement);
             const titleElem = card.querySelector('.card-title');
-            console.log(titleElem);
             const title = titleElem.innerHTML;
             window.location.href = '../../recipe.html';
         });
 
-        const save = document.querySelectorAll('.save');
+        const save = document.querySelectorAll('.save-recipe');
         save.forEach(button => {
             button.addEventListener('click', (e) => {
                 const card = e.target.parentElement;
-                const titleElem = card.querySelector('.card-title');
+                const titleElem = card.querySelector('.recipe-title');
                 const title = titleElem.innerHTML;
                 const image = card.querySelector('.card-image img');
+                const recipeUrl = card.querySelector('.view-recipe').href;
                 const savedFood = {
                     title: title,
-                    image: image.currentSrc
+                    image: image.currentSrc,
+                    url: recipeUrl,
+                    type: 'food'
                 }
-                localStorage.setItem('result-' + title, JSON.stringify(savedFood));
+                localStorage.setItem('food-' + title, JSON.stringify(savedFood));
             });
         });
     }

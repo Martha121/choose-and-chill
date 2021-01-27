@@ -1,33 +1,63 @@
 document.addEventListener('DOMContentLoaded', function() {
+    var select = document.querySelectorAll('select');
+    var formInstances = M.FormSelect.init(select, {});
+    var sideNav = document.querySelectorAll('.sidenav');
+    var sideNavInstances = M.Sidenav.init(sideNav, {});
+
+    document.querySelector('.sidenav-trigger').addEventListener('click', () => {
+        sideNavInstances.open();
+    });
+
     const searches = [];
     const keys = Object.keys(localStorage);
-    console.log(searches);
     let i = keys.length;
-    console.log(i);
 
     while (i--) {
         searches.push(localStorage.getItem(keys[i]));
     }
 
     searches.forEach(search => {
-        console.log(JSON.parse(search));
-        const results = document.querySelector('.results');
-        const resultItem = document.createElement('DIV');
-        resultItem.innerHTML = `
-            <div class="row">
-                <div class="col s12 m7">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="`+ JSON.parse(search).image + `" />
-                        <span class="card-title">` + JSON.parse(search).title + `</span>
-                    </div>
-                    <div class="card-action">
-                        <a href="#">View Recipe</a>
+        const result = JSON.parse(search);
+        if (result.type === 'movie') {
+            const movies = document.querySelector('.saved-movies');
+            const resultItem = document.createElement('DIV');
+            resultItem.classList.add('movie');
+            resultItem.innerHTML = `
+                <div class="row">
+                    <div>
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="`+ result.image + `" />
+                            </div>
+                            <div class="card-content">
+                                <p class="recipe-title">` + result.title + `</p>
+                                <p>` + result.synopsis + `</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
+            `
+            movies.appendChild(resultItem);
+        } else if (result.type === 'food') {
+            const food = document.querySelector('.saved-food');
+            const resultItem = document.createElement('DIV');
+            resultItem.classList.add('food');
+            resultItem.innerHTML = `
+                <div class="row">
+                    <div>
+                        <div class="card">
+                            <div class="card-image">
+                                <img src="`+ result.image + `" />
+                            </div>
+                            <p class="recipe-title">` + result.title + `</p>
+                            <div class="card-action">
+                                <a class="view-recipe" href="` + result.url + `" target="_blank">View Recipe</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        `
-        results.appendChild(resultItem);
+            `
+            food.appendChild(resultItem);
+        }
     });
 });
