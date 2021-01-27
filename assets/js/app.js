@@ -12,12 +12,12 @@ document.addEventListener('DOMContentLoaded', function() {
     submit.addEventListener('click', () => {
         const cuisine = document.querySelector('.cuisine .select-dropdown').value;
         const genreInput = document.querySelector('.movie .select-dropdown').value;
-        const genre = getMovieId(genreInput);
+        const genre = getGenreId(genreInput);
         getTopRecipesByCuisine(cuisine);
         getTopMovies(genre);
     });
 
-    function getMovieId(genre) {
+    function getGenreId(genre) {
         switch(genre) {
             case "Action": return "801362";
             case "Comedy": return "6548";
@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(err);
         });
     }
+
 
     // Function to fetch for recipes by cuisine
     function getTopRecipesByCuisine(cuisine) {
@@ -77,8 +78,10 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         const movies = moviesArray.slice(0, 5);
 
+        const resultsList = document.querySelector('.movie-results');
+        resultsList.innerHTML = "";
+
         movies.forEach(movie => {
-            const resultsList = document.querySelector('.movie-results');
             const resultItem = document.createElement('DIV');
             resultItem.classList.add('movie');
             resultItem.innerHTML = `
@@ -92,6 +95,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="movie-title">` + movie.title + `</p>
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
+                            <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
                             <div class="card-action save-movie">Save</div>
                         </div>
                     </div>
@@ -119,9 +123,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+   
+
     function displayRecipesSearchResult(searchResults){
-        (searchResults.results).forEach(result => {
             const resultsList = document.querySelector('.food-results');
+            resultsList.innerHTML = "";
+        (searchResults.results).forEach(result => {
             const resultItem = document.createElement('DIV');
             resultItem.classList.add('food');
             resultItem.innerHTML = `

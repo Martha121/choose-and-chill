@@ -82,7 +82,8 @@ nav .brand-logo {
     text-align: left;
 }
 
-.view-recipe {
+.view-recipe, 
+.view-movie{
     display: block;
     width: 100%;
 }
