@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', function() {
         movieModalEl.style.display = "none";
     };
 
-    function saveTitledetails(movie){
+    function saveTitleDetails(movie){
         const savedMovie = {
             title: title,
             image: image.currentSrc,
