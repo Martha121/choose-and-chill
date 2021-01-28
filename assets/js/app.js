@@ -331,8 +331,11 @@ function displayRecipeInformation(recipe){
     console.log(">>>displayRecipeInformation Called");
     console.log(recipe);
     // Add code here to display the recipe info
-    var recipeDataEl = document.getElementById("modal-recipe");
+    var recipeEl = document.getElementById("modal-all");
+    var recipeDataEl = document.getElementById("modal-content");
+    var modalHeaderEl = document.getElementById("modal-top");
     recipeDataEl.innerHTML="";
+    modalHeaderEl.innerHTML="";
     var recipeImg = document.createElement("img");
     var recipeInstructions = document.createElement("p");
     var recipeTitle = document.createElement ("p");
@@ -362,16 +365,17 @@ function displayRecipeInformation(recipe){
     button2.addEventListener("click", function(){
         clearRecipeInfoModal();
     });
-    recipeDataEl.appendChild(button1);
-    recipeDataEl.appendChild(button2);
+    modalHeaderEl.appendChild(button1);
+    modalHeaderEl.appendChild(button2);
 
-    recipeDataEl.style.display = "block";
+    recipeEl.style.display = "block";
+    //modalHeaderEl.style.display = "block";
 }
 
 
 // Function to remove modal from page
 function clearRecipeInfoModal(){
-    var recipeDataEl = document.getElementById("modal-recipe");
+    var recipeDataEl = document.getElementById("modal-all");
     recipeDataEl.style.display = "none";
 }
 
