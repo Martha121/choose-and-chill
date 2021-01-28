@@ -51,6 +51,29 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
 
+        //function to fetch movie details by id
+        function getDetailsById(netflixId) {
+            var detailsUrl = "https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?t=loadvideo&q=" + netflixId;
+            fetch(detailsUrl, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "0c425d1814msh0b34ce4efb75316p1d5409jsn5681f63cb68d",
+                "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com"
+            }
+        })
+        .then(response => {
+            return response.json()
+        }).then(function(data) {
+            console.log(data);
+            movieModal(data);
+            })
+        .catch(err => {
+            console.error(err);
+        });
+
+        }
+
+
     // Function to fetch for recipes by cuisine
     function getTopRecipesByCuisine(cuisine) {
         const offset = Math.floor(Math.random() * 200);
@@ -123,6 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="movie-title">` + movie.title + `</p>
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
+                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">More Details</button>
                             <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
                             
                             <div class="card-action save-movie">Save</div>
@@ -131,7 +155,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             `;
             resultsList.appendChild(resultItem);
+            
+            var moreDetails = document.getElementById("more-details-" + movie.netflixid);
+            moreDetails.value = movie.netflixid;
+            console.log(moreDetails);
+            moreDetails.addEventListener("click", function(event){
+                var targetElement = event.target;
+                console.log(targetElement);
+                btnMoreDetailsClick (targetElement);
+            })
+   
         });
+
+       
 
         const save = document.querySelectorAll('.save-movie');
         save.forEach(button => {
@@ -152,9 +188,85 @@ document.addEventListener('DOMContentLoaded', function() {
                 localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
             });
         });
+        
+
+
+        
     }
 
-   
+    var btnMoreDetailsClick = function(targetElement) {
+        var netflixId = targetElement.value;
+        console.log(netflixId);
+        getDetailsById(netflixId);
+    }
+
+    function movieModal(movie) {
+        var movieModalEl = document.getElementById("modal-movie-details");
+            movieModalEl.innerHTML ="";
+            var movieImg = document.createElement("img");
+            movieImg.src = movie.RESULT.nfinfo.image1;
+            movieImg.style.height="200px"
+            var movieSynopsis = document.createElement("p");
+            movieSynopsis.innerHTML = movie.RESULT.nfinfo.synopsis;
+            var movieTitle = document.createElement ("p");
+            movieTitle.innerHTML = movie.RESULT.nfinfo.title;
+            var movieRunTime = document.createElement ("p");
+            movieRunTime.innerHTML = "Run Time: " + movie.RESULT.nfinfo.runtime;
+            var movieRelease = document.createElement ("p");
+            movieRelease.innerHTML = "Release Date: " + movie.RESULT.nfinfo.released;
+            var movieRating = document.createElement ("p");
+            movieRating.innerHTML = "Netflix Rating: " + movie.RESULT.imdbinfo.rating;
+
+            movieModalEl.appendChild(movieTitle);
+            movieModalEl.appendChild(movieImg);
+            movieModalEl.appendChild(movieSynopsis);
+            movieModalEl.appendChild(movieRunTime);
+            movieModalEl.appendChild(movieRelease);
+            movieModalEl.appendChild(movieRating);
+
+            var button1 =document.createElement("button");
+            button1.type = "button";
+            button1.innerHTML = "Save this title";
+            button1.addEventListener("click", function(){
+            saveTitleDetails(movie);
+            });
+
+            var button2 = document.createElement("button");
+            button2.type = "button";
+            button2.innerHTML = "Return to options";
+            button2.addEventListener("click", function(){
+            clearTitleDetails();
+            });
+
+            var button3 = document.createElement("button");
+            button3.type = "button";
+            button3.innerHTML = "Go to Netflix Page"
+            button3.addEventListener("click", function(){
+            window.open('https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid, '_blank')
+            });
+    movieModalEl.appendChild(button1);
+    movieModalEl.appendChild(button2);
+    movieModalEl.appendChild(button3);
+    movieModalEl.style.display = "block";
+    };
+
+    function clearTitleDetails(){
+        var movieModalEl = document.getElementById("modal-movie-details");
+        movieModalEl.style.display = "none";
+    };
+
+    function saveTitledetails(movie){
+        const savedMovie = {
+            title: title,
+            image: image.currentSrc,
+            synopsis: synopsis,
+            type: 'movie',
+            url: netflixURL
+        }
+        localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
+        clearTitleDetails();
+    }
+
 
     function displayRecipesSearchResult(searchResults){
             const resultsList = document.querySelector('.food-results');
