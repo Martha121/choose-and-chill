@@ -63,6 +63,10 @@ nav .brand-logo {
     border-radius: 3px;
 }
 
+.card-content {
+    min-height: 318px;
+}
+
 .card-action {
     background-color: red !important;
     color: white;
@@ -130,6 +134,9 @@ nav .brand-logo {
     .card-action a {
         margin: 0 auto !important;
     }
+
+
+
 
     .movie-results,
     .food-results {
