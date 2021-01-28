@@ -146,10 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="movie-title">` + movie.title + `</p>
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
-                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">More Details</button>
-                            <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
+                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">View Details</button>
                             
-                            <div class="card-action save-movie">Save</div>
                         </div>
                     </div>
                 </div>
@@ -283,11 +281,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="card-content">
                                 <p class="recipe-title">` + result.title + `</p>
+                                <p class="recipe-summary">` + result.summary.substring(0,400) + ` . . .` + `</p>
                             </div>
                             
                             <div id=` + result.id + ` class="card-action view-recipe">View Recipe</div>
-                            
-                            <div class="card-action save-recipe">Save</div>
                         </div>
                     </div>
                 </div>
@@ -334,8 +331,11 @@ function displayRecipeInformation(recipe){
     console.log(">>>displayRecipeInformation Called");
     console.log(recipe);
     // Add code here to display the recipe info
-    var recipeDataEl = document.getElementById("modal-recipe");
+    var recipeEl = document.getElementById("modal-all");
+    var recipeDataEl = document.getElementById("modal-content");
+    var modalHeaderEl = document.getElementById("modal-top");
     recipeDataEl.innerHTML="";
+    modalHeaderEl.innerHTML="";
     var recipeImg = document.createElement("img");
     var recipeInstructions = document.createElement("p");
     var recipeTitle = document.createElement ("p");
@@ -365,16 +365,17 @@ function displayRecipeInformation(recipe){
     button2.addEventListener("click", function(){
         clearRecipeInfoModal();
     });
-    recipeDataEl.appendChild(button1);
-    recipeDataEl.appendChild(button2);
+    modalHeaderEl.appendChild(button1);
+    modalHeaderEl.appendChild(button2);
 
-    recipeDataEl.style.display = "block";
+    recipeEl.style.display = "block";
+    //modalHeaderEl.style.display = "block";
 }
 
 
 // Function to remove modal from page
 function clearRecipeInfoModal(){
-    var recipeDataEl = document.getElementById("modal-recipe");
+    var recipeDataEl = document.getElementById("modal-all");
     recipeDataEl.style.display = "none";
 }
 
