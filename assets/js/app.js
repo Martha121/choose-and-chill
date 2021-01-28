@@ -146,10 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="movie-title">` + movie.title + `</p>
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
-                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">More Details</button>
-                            <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
+                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">View Details</button>
                             
-                            <div class="card-action save-movie">Save</div>
                         </div>
                     </div>
                 </div>
@@ -283,11 +281,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="card-content">
                                 <p class="recipe-title">` + result.title + `</p>
+                                <p class="recipe-summary">` + result.summary.substring(0,400) + ` . . .` + `</p>
                             </div>
                             
                             <div id=` + result.id + ` class="card-action view-recipe">View Recipe</div>
-                            
-                            <div class="card-action save-recipe">Save</div>
                         </div>
                     </div>
                 </div>
