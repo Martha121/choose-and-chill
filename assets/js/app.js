@@ -224,6 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var button1 =document.createElement("button");
             button1.type = "button";
+            button1.addClass();
             button1.innerHTML = "Save this title";
             button1.addEventListener("click", function(){
             saveTitleDetails(movie);

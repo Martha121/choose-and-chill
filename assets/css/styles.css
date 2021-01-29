@@ -121,8 +121,30 @@ nav .brand-logo {
     color: white;
     padding:20px 50px 20px 20px;
     border: 3px solid red;
-}
 
+}
+.color-change {
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 14px 80px;
+    cursor: pointer;
+    color: #fff;
+    background-color: #00A6FF;
+    font-size: 1.5rem;
+    font-family: 'Roboto';
+    font-weight: 100;
+    border: 1px solid #fff;
+    box-shadow: 2px 2px 5px #AFE9FF;
+    transition-duration: 0.5s;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+  }
+  
+  .color-change:hover {
+    color: #006398;
+    border: 1px solid #006398;
+    box-shadow: 2px 2px 20px #AFE9FF;
+  }
 .modal-content-css{
     position: absolute;
     top: 100px;
@@ -142,7 +164,13 @@ nav .brand-logo {
       height: 100px;
   }
   
-
+.remove-btn{
+background-color:red;
+color:white;
+font-family: 'Oswald', sans-serif;
+font-weight:bold ;
+border-top: px solid white;
+}
 @media (min-width: 993px) {
     nav .brand-logo {
         left: 0;
@@ -235,11 +263,11 @@ nav .brand-logo {
         border: none;
     }
 
-    .saved-food .card-action {
+    .saved-food /*.card-action*/ {
         border-bottom: none;
     }
 
-    .saved-movies .card-action {
+    .saved-movies /*.card-action*/ {
         border-bottom: none;
     }
 
