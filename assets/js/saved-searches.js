@@ -64,3 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+function clearHistory(){
+ localStorage.clear();
+ window.location.href="saved-searches.html";
+}

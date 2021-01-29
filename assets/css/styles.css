@@ -104,6 +104,9 @@ nav .brand-logo {
     margin-bottom: 15px;
 }
 
+.history:hover{
+    color:blue;
+}
 
 .modal{
     display: none;
