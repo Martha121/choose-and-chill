@@ -254,7 +254,8 @@ document.addEventListener('DOMContentLoaded', function() {
             image: movie.RESULT.nfinfo.image1, 
             synopsis: movie.RESULT.nfinfo.synopsis,
             type: 'movie',
-            url: 'https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid
+            url: 'https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid,
+            netflixid: movie.RESULT.nfinfo.netflixid
         }
         console.log(savedMovie);
         var title = movie.RESULT.nfinfo.title;

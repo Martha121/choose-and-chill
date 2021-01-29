@@ -92,7 +92,8 @@ nav .brand-logo {
 
 .more-details,
 .view-recipe, 
-.view-movie {
+.view-movie
+.remove {
     display: block;
     width: 100%;
 }
@@ -244,9 +245,11 @@ nav .brand-logo {
         color: white !important;
     }
 
-    .saved-movies .view-movie {
+    .saved-movies .view-movie .remove {
         color: white !important;
     }
+
+
 
     .food-results .view-recipe {
         border-bottom: 1px solid white;
