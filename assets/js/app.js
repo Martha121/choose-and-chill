@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     var select = document.querySelectorAll('select');
-    var formInstances = M.FormSelect.init(select, {});
+    M.FormSelect.init(select, {});
     var sideNav = document.querySelectorAll('.sidenav');
     var sideNavInstances = M.Sidenav.init(sideNav, {});
 
@@ -13,8 +13,12 @@ document.addEventListener('DOMContentLoaded', function() {
         const cuisine = document.querySelector('.cuisine .select-dropdown').value;
         const genreInput = document.querySelector('.movie .select-dropdown').value;
         const genre = getGenreId(genreInput);
-        getTopRecipesByCuisine(cuisine);
-        getTopMovies(genre);
+        if(cuisine != "Choose Your Cuisine"){
+            getTopRecipesByCuisine(cuisine);
+        }
+        if(genreInput != "Choose Your Movie Genre"){
+            getTopMovies(genre);
+        }  
     });
 
     function getGenreId(genre) {
@@ -84,12 +88,36 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             return response.json();
         }).then(function(data) {
+            console.log(">>> getTopRecipesByCuisine ");
+            console.log(data);
             displayRecipesSearchResult(data);
         }).catch(err => {
             console.error(err);
         });
     }
 
+    //Function to fetch recipe info by Id
+    function getRecipeInfoById(recipeid)
+    {
+        fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/"+recipeid+"/information", {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "3f77afb5bdmshe64d26f6b558b5ep18167cjsnf240e41e44d4",
+                "x-rapidapi-host": "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com"
+            }
+        })
+        .then(response => {
+                response.json().then(function(data) {
+                console.log(">>> getRecipeById " + recipeid);
+                console.log(data);
+                displayRecipeInformation(data);
+            })
+        })
+        .catch(err => {
+            console.error(err);
+        });  
+    } 
+//----------------------Begin Movie Info--------------------------------------------------------
     function displayMovieSearchResult(searchResults){
         const moviesArray = [];
         const count = parseInt(searchResults.COUNT) > 100 ? 100 : parseInt(searchResults.COUNT);
@@ -118,10 +146,8 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p class="movie-title">` + movie.title + `</p>
                                 <p class="synopsis">` + movie.synopsis + `</p>
                             </div>
-                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">More Details</button>
-                            <a class="card-action view-movie" href="` + "https://www.netflix.com/browse?jbv=" + movie.netflixid + `" target="_blank">View Netflix Page</a>
+                            <button class="card-action more-details" id="more-details-` + movie.netflixid + `">View Details</button>
                             
-                            <div class="card-action save-movie">Save</div>
                         </div>
                     </div>
                 </div>
@@ -222,23 +248,27 @@ document.addEventListener('DOMContentLoaded', function() {
     movieModalEl.style.display = "block";
     };
 
+    function saveTitleDetails(movie){
+        const savedMovie = {
+            title: movie.RESULT.nfinfo.title,
+            image: movie.RESULT.nfinfo.image1, 
+            synopsis: movie.RESULT.nfinfo.synopsis,
+            type: 'movie',
+            url: 'https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid
+        }
+        console.log(savedMovie);
+        var title = movie.RESULT.nfinfo.title;
+        localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
+        clearTitleDetails();
+    }
+
+
     function clearTitleDetails(){
         var movieModalEl = document.getElementById("modal-movie-details");
         movieModalEl.style.display = "none";
     };
 
-    function saveTitleDetails(movie){
-        const savedMovie = {
-            title: title,
-            image: image.currentSrc,
-            synopsis: synopsis,
-            type: 'movie',
-            url: netflixURL
-        }
-        localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
-        clearTitleDetails();
-    }
-
+//---------------------Begin Recipe Info----------------------------------------------------------
 
     function displayRecipesSearchResult(searchResults){
             const resultsList = document.querySelector('.food-results');
@@ -255,30 +285,28 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="card-content">
                                 <p class="recipe-title">` + result.title + `</p>
+                                <p class="recipe-summary">` + result.summary.substring(0,400) + ` . . .` + `</p>
                             </div>
                             
-                            <a class="card-action view-recipe" href="` + result.sourceUrl + `" target="_blank">View Recipe</a>
-                            
-                            <div class="card-action save-recipe">Save</div>
+                            <div id=` + result.id + ` class="card-action view-recipe">View Recipe</div>
                         </div>
                     </div>
                 </div>
             `;
             resultsList.appendChild(resultItem);
         });
-
-        const view = document.querySelector('.view-recipe');
-        view.addEventListener('click', (e) => {
-            const target = e.target;
-            const card = (target.parentElement);
-            const titleElem = card.querySelector('.card-title');
-            const title = titleElem.innerHTML;
-            window.location.href = '../../recipe.html';
+        
+        const view = document.querySelectorAll('.view-recipe');
+        view.forEach(button => {
+            button.addEventListener('click', (e) => {
+                getRecipeInfoById(e.target.id);
+            });
         });
 
         const save = document.querySelectorAll('.save-recipe');
         save.forEach(button => {
             button.addEventListener('click', (e) => {
+                
                 const card = e.target.parentElement;
                 const titleElem = card.querySelector('.recipe-title');
                 const title = titleElem.innerHTML;
@@ -291,7 +319,78 @@ document.addEventListener('DOMContentLoaded', function() {
                     type: 'food'
                 }
                 localStorage.setItem('food-' + title, JSON.stringify(savedFood));
+                
             });
         });
+        
     }
 });
+
+
+
+
+// Function to display the recipe information
+function displayRecipeInformation(recipe){
+    
+    console.log(">>>displayRecipeInformation Called");
+    console.log(recipe);
+    // Add code here to display the recipe info
+    var recipeEl = document.getElementById("modal-all");
+    var recipeDataEl = document.getElementById("modal-content");
+    var modalHeaderEl = document.getElementById("modal-top");
+    recipeDataEl.innerHTML="";
+    modalHeaderEl.innerHTML="";
+    var recipeImg = document.createElement("img");
+    var recipeInstructions = document.createElement("p");
+    var recipeTitle = document.createElement ("p");
+    var recipeIngredient = document.createElement ("p");
+    recipeIngredient.innerHTML = "Ingredients: ";
+    for(var i=0; i<recipe.extendedIngredients.length; i++){
+          recipeIngredient.innerHTML+=recipe.extendedIngredients[i].name+",";
+    }
+    recipeTitle.innerHTML = recipe.title;
+    recipeImg.src=recipe.image;
+    recipeImg.style.height="200px";
+    recipeInstructions.innerHTML="Instructions: "+recipe.instructions;
+    recipeDataEl.appendChild(recipeImg);
+    recipeDataEl.appendChild(recipeTitle);
+    recipeDataEl.appendChild(recipeIngredient);
+    recipeDataEl.appendChild(recipeInstructions);
+
+    var button1 =document.createElement("button");
+    button1.type = "button";
+    button1.innerHTML = "Save this recipe";
+    button1.addEventListener("click", function(){
+        saveRecipeInformation(recipe);
+    });
+    var button2 = document.createElement("button");
+    button2.type = "button";
+    button2.innerHTML = "Return to options";
+    button2.addEventListener("click", function(){
+        clearRecipeInfoModal();
+    });
+    modalHeaderEl.appendChild(button1);
+    modalHeaderEl.appendChild(button2);
+
+    recipeEl.style.display = "block";
+    //modalHeaderEl.style.display = "block";
+}
+
+
+// Function to remove modal from page
+function clearRecipeInfoModal(){
+    var recipeDataEl = document.getElementById("modal-all");
+    recipeDataEl.style.display = "none";
+}
+
+// Function to save the current selection shown in the modal window
+function saveRecipeInformation(recipe){
+    const savedFood = {
+        title: recipe.title,
+        image: recipe.image,
+        url: recipe.sourceUrl,
+        type: 'food'
+    }
+    localStorage.setItem('food-' + savedFood.title, JSON.stringify(savedFood));
+    clearRecipeInfoModal();
+}
