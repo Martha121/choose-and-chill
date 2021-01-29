@@ -34,7 +34,10 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <p>` + result.synopsis + `</p>
                             </div>
                             <div class="card-action">
-                                <a class="view-movie" href="` + result.url + `" target="_blank">View Netflix Page</a>
+                                <a class="view-movie" href="` + result.url + `" target="_blank">VIEW NETFLIX PAGE</a>
+                            </div>
+                            <div class="card-action">
+                                <a class="remove-btn view-movie" onclick="removeMovieClick('movie-` + result.title + `')">REMOVE TITLE</a>                              
                             </div>
                         </div>
                     </div>
@@ -68,6 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function removeMovieClick(movieKey){
+    localStorage.removeItem(movieKey);
+    window.location.href="saved-searches.html";
+}
 
 function removeRecipeClick(recipeKey){
     localStorage.removeItem(recipeKey);
