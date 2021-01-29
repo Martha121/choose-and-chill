@@ -117,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error(err);
         });  
     } 
-
+//----------------------Begin Movie Info--------------------------------------------------------
     function displayMovieSearchResult(searchResults){
         const moviesArray = [];
         const count = parseInt(searchResults.COUNT) > 100 ? 100 : parseInt(searchResults.COUNT);
@@ -251,7 +251,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function saveTitleDetails(movie){
         const savedMovie = {
             title: movie.RESULT.nfinfo.title,
-            image: movie.RESULT.nfinfo.image1, //.currentSrc
+            image: movie.RESULT.nfinfo.image1, 
             synopsis: movie.RESULT.nfinfo.synopsis,
             type: 'movie',
             url: 'https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid
@@ -268,7 +268,7 @@ document.addEventListener('DOMContentLoaded', function() {
         movieModalEl.style.display = "none";
     };
 
-//-------------------------------------------------------------------------------
+//---------------------Begin Recipe Info----------------------------------------------------------
 
     function displayRecipesSearchResult(searchResults){
             const resultsList = document.querySelector('.food-results');
