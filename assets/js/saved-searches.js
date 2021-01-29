@@ -56,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function() {
                             <div class="card-action">
                                 <a class="view-recipe" href="` + result.url + `" target="_blank">View Recipe</a>
                             </div>
+                            <div class="card-action">
+                                <a class="remove-btn view-recipe" onclick="removeRecipeClick('food-` + result.title + `')">REMOVE RECIPE</a>
+                                
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -64,7 +68,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function removeRecipeClick(recipeKey){
+    localStorage.removeItem(recipeKey);
+    window.location.href="saved-searches.html";
+}
+
 function clearHistory(){
- localStorage.clear();
- window.location.href="saved-searches.html";
+    localStorage.clear();
+    window.location.href="saved-searches.html";
 }

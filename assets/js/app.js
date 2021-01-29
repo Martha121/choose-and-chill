@@ -360,16 +360,21 @@ function displayRecipeInformation(recipe){
     var button1 =document.createElement("button");
     button1.type = "button";
     button1.innerHTML = "Save this recipe";
+    button1.classList.add("modal-button");
     button1.addEventListener("click", function(){
         saveRecipeInformation(recipe);
     });
     var button2 = document.createElement("button");
     button2.type = "button";
     button2.innerHTML = "Return to options";
+    button2.classList.add("modal-button");
     button2.addEventListener("click", function(){
         clearRecipeInfoModal();
     });
+    var blankSpace = document.createTextNode("\u00A0");
     modalHeaderEl.appendChild(button1);
+    modalHeaderEl.appendChild(blankSpace);
+    modalHeaderEl.appendChild(blankSpace);
     modalHeaderEl.appendChild(button2);
 
     recipeEl.style.display = "block";
