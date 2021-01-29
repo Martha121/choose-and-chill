@@ -248,23 +248,27 @@ document.addEventListener('DOMContentLoaded', function() {
     movieModalEl.style.display = "block";
     };
 
+    function saveTitleDetails(movie){
+        const savedMovie = {
+            title: movie.RESULT.nfinfo.title,
+            image: movie.RESULT.nfinfo.image1, //.currentSrc
+            synopsis: movie.RESULT.nfinfo.synopsis,
+            type: 'movie',
+            url: 'https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid
+        }
+        console.log(savedMovie);
+        var title = movie.RESULT.nfinfo.title;
+        localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
+        clearTitleDetails();
+    }
+
+
     function clearTitleDetails(){
         var movieModalEl = document.getElementById("modal-movie-details");
         movieModalEl.style.display = "none";
     };
 
-    function saveTitleDetails(movie){
-        const savedMovie = {
-            title: title,
-            image: image.currentSrc,
-            synopsis: synopsis,
-            type: 'movie',
-            url: netflixURL
-        }
-        localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
-        clearTitleDetails();
-    }
-
+//-------------------------------------------------------------------------------
 
     function displayRecipesSearchResult(searchResults){
             const resultsList = document.querySelector('.food-results');
