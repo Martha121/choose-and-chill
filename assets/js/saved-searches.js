@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <a class="view-movie" href="` + result.url + `" target="_blank">VIEW NETFLIX PAGE</a>
                             </div>
                             <div class="card-action">
-                                <a class="remove-btn view-movie" onclick="removeMovieClick('movie-` + result.title + `')">REMOVE TITLE</a>                              
+                                <a class="remove-btn view-movie" onclick="removeMovieClick('movie-` + result.title + `')" style="cursor:pointer">REMOVE TITLE</a>                              
                             </div>
                         </div>
                     </div>
