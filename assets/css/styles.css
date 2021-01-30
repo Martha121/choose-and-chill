@@ -15,7 +15,7 @@ nav .sidenav-trigger {
     float: right;
 }
 
-nav .brand-logo {
+nav .z-depth-1 {
     font-size: 20px;
 }
 
@@ -97,11 +97,30 @@ nav .brand-logo {
     width: 100%;
 }
 
+.select-dropdown{
+    color:black;
+}
+
+.dropdown-trigger{
+background-color: aliceblue;
+color: red;
+}
+dropdown-content {
+    color:red;
+}
 .form-container {
-    background-color: white;
+    color: red ;
     border-radius: 3px;
     padding: 20px;
     margin-bottom: 15px;
+}
+.caret{
+    background-color: red;
+    border-radius: 30%;
+}
+
+#center-button {
+    margin: auto;
 }
 
 .history:hover{
@@ -163,12 +182,13 @@ nav .brand-logo {
     }
 
     .form-container .input-field {
-        width: 48%;
+         width: 48%;
     }
 
     .card-container {
         width: 100%;
         max-width: 500px;
+        min-width: 100px;
         margin: 0 auto;
     }
 

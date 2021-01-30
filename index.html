@@ -1,83 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./assets/css/styles.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/styles.css" />
     <title>Choose and Chill</title>
-</head>
-<body>
+  </head>
+  <body>
     <nav>
-        <div class="nav-wrapper">
-        <a href="./index.html" class="brand-logo">Choose & Chill</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+      <div class="nav-wrapper">
+        <a href="./index.html" class="z-depth-4">Choose & Chill</a>
+        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
+          ><i class="material-icons">menu</i></a
+        >
         <ul class="right hide-on-med-and-down">
-            <li><a href="./saved-searches.html">My Saved Searches</a></li>
+          <li><a href="./saved-searches.html">My Saved Searches</a></li>
         </ul>
-        </div>
+      </div>
     </nav>
     <ul class="sidenav" id="mobile-demo">
-        <li><a href="./saved-searches.html">My Saved Searches</a></li>
+      <li><a href="./saved-searches.html">My Saved Searches</a></li>
     </ul>
     <div class="main-content">
-        <h1>Choose & Chill</h1>
-        <p class="description">Watch movies & TV shows online while eating your favorite foods!</p>
+      <h1>Choose & Chill</h1>
+      <p class="description">
+        Watch movies & TV shows online while eating your favorite foods!
+      </p>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m4 l3">
         <div class="form-container">
-            <div class="input-field movie">
-                <select>
-                    <option disabled selected>Choose Your Movie Genre</option>
-                    <option>Action</option>
-                    <option>Comedy</option>
-                    <option>Drama</option>
-                    <option>Horror</option>
-                    <option>Romantic</option>
-                </select>
+          <div class="input-field movie">
+            <i class="large material-icons">video_library</i>
+            <div class="input-field col s12">
+              <select>
+                <option value="" disabled selected>Choose Your Genre</option>
+                <option value="1">Action</option>
+                <option value="2">Comedy</option>
+                <option value="3">Drama</option>
+                <option value="4">Horror</option>
+                <option value="5">Romance</option>
+              </select>
             </div>
-            <div class="input-field cuisine">
-                <select id="cuisine-select">
-                    <option disabled selected value="">Choose Your Cuisine</option>
-                    <option>American</option>
-                    <option>British</option>
-                    <option>Cajun</option>
-                    <option>Caribbean</option>
-                    <option>Chinese</option>
-                    <option>French</option>
-                    <option>German</option>
-                    <option>Greek</option>
-                    <option>Indian</option>
-                    <option>Irish</option>
-                    <option>Italian</option>
-                    <option>Japanese</option>
-                    <option>Jewish</option>
-                    <option>Korean</option>
-                    <option>Latin American</option>
-                    <option>Mexican</option>
-                    <option>Middle Eastern</option>
-                    <option>Spanish</option>
-                    <option>Thai</option>
-                    <option>Vietnamese</option>
-                </select>
-            </div>
+          </div>
+          <div class="input-field cuisine">
+            <i class="large material-icons">local_bar</i>
+            <select id="cuisine-select">
+              <option disabled selected value="">Choose Your Cuisine</option>
+              <option>American</option>
+              <option>British</option>
+              <option>Cajun</option>
+              <option>Caribbean</option>
+              <option>Chinese</option>
+              <option>French</option>
+              <option>German</option>
+              <option>Greek</option>
+              <option>Indian</option>
+              <option>Irish</option>
+              <option>Italian</option>
+              <option>Japanese</option>
+              <option>Jewish</option>
+              <option>Korean</option>
+              <option>Latin American</option>
+              <option>Mexican</option>
+              <option>Middle Eastern</option>
+              <option>Spanish</option>
+              <option>Thai</option>
+              <option>Vietnamese</option>
+            </select>
+          </div>
         </div>
-        <button class="submit btn waves-effect waves-light" type="submit" name="action">Search</button>
-        <p class="movies-title">Movie Results:</p>
+      </div>
+    </div>
+
+    <div class="row">
+      <button id="center-button"
+        class="submit btn waves-effect waves-light"
+        class="center"
+        type="submit"
+        name="action"
+      >
+        Search
+      </button>
+    </div>
+
+    <div class="row">
+      <div class="col s12 m6 13">
+        <i class="fas fa-search-location"></i>
+        <!-- <p class="movies-title">Movie Results:</p> -->
         <div class="movie-results"></div>
-        <p class="food-title">Food Results:</p>
+        <!-- <p class="food-title">Food Results:</p> -->
         <div class="food-results"></div>
         <div class="modal" id="modal-movie-details">
-            <button type="button" class="close-modal" data-dismiss="modal">return to results</button>
+          <button type="button" class="close-modal" data-dismiss="modal">
+            return to results
+          </button>
         </div>
-        <div class="modal" id="modal-all" >
-            <div class="modal-header-css" id="modal-top"></div>
-            <div class="modal-content-css" id="modal-content"></div>       
-        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="modal-all">
+      <div class="modal-header-css" id="modal-top"></div>
+      <div class="modal-content-css" id="modal-content"></div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="./assets/js/app.js"></script>
     <!-- <script src="./assets/js/food-options.js"></script> -->
-</body>
+  </body>
 </html>
