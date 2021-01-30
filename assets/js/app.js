@@ -77,6 +77,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch for recipes by cuisine
     function getTopRecipesByCuisine(cuisine) {
         const offset = Math.floor(Math.random() * 200);
+        console.log(">>> ENtering the fetch request by cuisine");
         //Fetch will return 5 random recipes based on cuisine
         fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?limitLicense=false&offset="+offset+"&addRecipeInformation=true&number=5&cuisine="+cuisine, {
             "method": "GET",
@@ -131,6 +132,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const resultsList = document.querySelector('.movie-results');
         resultsList.innerHTML = "";
+        var resultsTitle = document.getElementById("movie-title-id")
+            resultsTitle.style.display = "block";
 
         movies.forEach(movie => {
             const resultItem = document.createElement('DIV');
@@ -273,6 +276,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function displayRecipesSearchResult(searchResults){
             const resultsList = document.querySelector('.food-results');
             resultsList.innerHTML = "";
+            var resultsTitle = document.getElementById("food-title-id")
+            resultsTitle.style.display = "block";
         (searchResults.results).forEach(result => {
             const resultItem = document.createElement('DIV');
             resultItem.classList.add('food');
@@ -378,7 +383,6 @@ function displayRecipeInformation(recipe){
     modalHeaderEl.appendChild(button2);
 
     recipeEl.style.display = "block";
-    //modalHeaderEl.style.display = "block";
 }
 
 

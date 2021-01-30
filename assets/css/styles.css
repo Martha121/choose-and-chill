@@ -140,6 +140,7 @@ dropdown-content {
     color: white;
     padding:20px 50px 20px 20px;
     border: 3px solid red;
+    z-index:1010;
 
 }
 
@@ -194,6 +195,13 @@ dropdown-content {
     /*
     color: gray;
     box-shadow: 2px 2px 20px #AFE9FF;*/
+  }
+  body.modal-open .supreme-container {
+    -webkit-filter: blur(1px);
+    -moz-filter: blur(1px);
+    -o-filter: blur(1px);
+      -ms-filter: blur(1px);
+      filter: blur(1px);
   }
 
 @media (min-width: 993px) {
