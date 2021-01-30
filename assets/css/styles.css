@@ -103,10 +103,10 @@ nav .z-depth-1 {
 
 .dropdown-trigger{
 background-color: aliceblue;
-color: red;
+color:aliceblue;
 }
-dropdown-content {
-    color:red;
+.dropdown-content {
+    color:aliceblue;
 }
 .form-container {
     color: red ;
