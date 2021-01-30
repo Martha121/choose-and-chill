@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             return response.json()
         }).then(function(data) {
-            console.log(data);
             movieModal(data);
             })
         .catch(err => {
@@ -77,7 +76,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // Function to fetch for recipes by cuisine
     function getTopRecipesByCuisine(cuisine) {
         const offset = Math.floor(Math.random() * 200);
-        console.log(">>> ENtering the fetch request by cuisine");
         //Fetch will return 5 random recipes based on cuisine
         fetch("https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/complexSearch?limitLicense=false&offset="+offset+"&addRecipeInformation=true&number=5&cuisine="+cuisine, {
             "method": "GET",
@@ -89,8 +87,6 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => {
             return response.json();
         }).then(function(data) {
-            console.log(">>> getTopRecipesByCuisine ");
-            console.log(data);
             displayRecipesSearchResult(data);
         }).catch(err => {
             console.error(err);
@@ -109,8 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(response => {
                 response.json().then(function(data) {
-                console.log(">>> getRecipeById " + recipeid);
-                console.log(data);
                 displayRecipeInformation(data);
             })
         })
@@ -159,10 +153,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             var moreDetails = document.getElementById("more-details-" + movie.netflixid);
             moreDetails.value = movie.netflixid;
-            console.log(moreDetails);
             moreDetails.addEventListener("click", function(event){
                 var targetElement = event.target;
-                console.log(targetElement);
                 btnMoreDetailsClick (targetElement);
             })
    
@@ -197,7 +189,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     var btnMoreDetailsClick = function(targetElement) {
         var netflixId = targetElement.value;
-        console.log(netflixId);
         getDetailsById(netflixId);
     }
 
@@ -259,7 +250,6 @@ document.addEventListener('DOMContentLoaded', function() {
             type: 'movie',
             url: 'https://www.netflix.com/browse?jbv=' + movie.RESULT.nfinfo.netflixid
         }
-        console.log(savedMovie);
         var title = movie.RESULT.nfinfo.title;
         localStorage.setItem('movie-' + title, JSON.stringify(savedMovie));
         clearTitleDetails();
@@ -290,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                             <div class="card-content">
                                 <p class="recipe-title">` + result.title + `</p>
-                                <p class="recipe-summary">` + result.summary.substring(0,400) + ` . . .` + `</p>
+                                <p class="recipe-summary">` + result.summary.substring(0,300) + ` . . .` + `</p>
                             </div>
                             
                             <div id=` + result.id + ` class="card-action view-recipe">View Recipe</div>
@@ -337,8 +327,6 @@ document.addEventListener('DOMContentLoaded', function() {
 // Function to display the recipe information
 function displayRecipeInformation(recipe){
     
-    console.log(">>>displayRecipeInformation Called");
-    console.log(recipe);
     // Add code here to display the recipe info
     var recipeEl = document.getElementById("modal-all");
     var recipeDataEl = document.getElementById("modal-content");
